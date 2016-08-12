@@ -1,8 +1,0 @@
-{
-	"Changelist" : 3005592,
-	"BuildId" : "b24d57f8-8b1b-4825-af2d-de6c153ff97f",
-	"Modules" : 
-	{
-		"VRGripMotionControllerPlugin" : "UE4Editor-VRGripMotionControllerPlugin.dll"
-	}
-}

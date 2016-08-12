@@ -16,14 +16,41 @@ Have fun!
 
 Mat, at Proteus VR
 
+
 External credits:
-* Grab Plugin and functionnalities: @mordentral
+* VRExpansion Plugin and functionnalities: @mordentral
 * Vive Controller inputs image: @mitchemmc
 * Teleport function #2, UltraMan: @PenguinTD
 
 For questions,s see the forum thread: https://forums.unrealengine.com/showthread.php?106609-Steam-VR-Template 
 
-# Version 1.10.1 – UE4.12.3: June 15, 2016 #
+# Version 1.11 – UE4.12.5: July 27, 2016 #
+
+Changelog
+
+* Updated to 4.12.5
+* Now using VRExpansion plugin
+* Multiplayer ready…or almost
+* Playground rotation or locked when teleport
+* Lot of small fixes
+
+#Features#
+
+* Basic pawn with controllers meshes, trackpads, face
+Animated triggers and hands in both controllers
+Mapping of all buttons/trackpad on controllers
+Force feedback
+Selectable controllers skins & opacity
+Select alternate meshes for controllers
+Adjustable "safe" value to teleport on uneven surfaces
+* Locomotion
+Teleport with trackpad and rotate playground
+Teleport with trigger
+Ghost Move
+
+Version 1.10.1 – UE4.12.3: June 15, 2016
+
+Changelog
 
 * Updated to 4.12.3
 * Updated grab plugin
@@ -42,7 +69,7 @@ The Vive_Pawn_Complete does everything, except vehicle
 
 Following many requests, this is to facilitate the migration of the pawn into another project.
 
-#Features#
+Features
 
 * Animated triggers in both controllers
 * Map of all buttons/trackpad on controllers
@@ -65,11 +92,28 @@ Following many requests, this is to facilitate the migration of the pawn into an
 * Addition of a cone at the tip of the right trigger -- can be rotated
 * “UltraMan” mode
 * Standing/seated experience switch
+
 * Grab function
+Additional functions
+* Go/No go teleportation zones with camera fade out
+Toggle on/off debugging squares of controllers and/or base stations
+Toggle on/off debugging meshes of base stations
+Triggerable poles at the 4 chaperone corners
+Basic vehicle functions
+Moving platform for testing purpose, by simple actor move (embark by triggering overlap volume or teleportation; disembark by teleportation) and matinee (embark/disembark with controller input)
+“UltraMan” mode
+* Settings
+Basic settings
+Scalability settings
+Pawn settings
+* Toybox
+4 objects with skeletal sockets: the sword, the gun, the baton, the lightsaber; 1 object with mesh socket: the book; 1 object without sockets: the hat
+* Multiplayer
+Multiplayer ready (missing: 3D widget interaction: soon!)
+
 
 Setup
 Files can be found [on OneDrive] https://1drv.ms/f/s!AhConHxqM4Nisn-TFO1AtRNCJWhn
-
 GitHub version at https://github.com/ProteusVR/SteamVR_Template (you need to be logged to Github to open the link) 
 
 To install as a template, just unzip into the appropriate templates directory like C:\Program Files\Unreal Engine[Version]\Templates for launcher version or[ForkLocation]\UE4\Templates for source version. 
