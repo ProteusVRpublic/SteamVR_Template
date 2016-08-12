@@ -23,7 +23,6 @@ public:
 	FTransform RelativeTransform;
 };
 
-
 UCLASS(Blueprintable, meta = (BlueprintSpawnableComponent), ClassGroup = MotionController)
 class UGripMotionControllerComponent : public UPrimitiveComponent
 {
@@ -41,7 +40,7 @@ class UGripMotionControllerComponent : public UPrimitiveComponent
 
 	/** If false, render transforms within the motion controller hierarchy will be updated a second time immediately before rendering. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MotionController")
-		uint32 bDisableLowLatencyUpdate : 1;
+		uint32 bDisableLowLatencyUpdate:1;
 
 	/** The tracking status for the device (e.g. full tracking, inertial tracking only, no tracking) */
 	UPROPERTY(BlueprintReadOnly, Category = "MotionController")
@@ -114,6 +113,12 @@ private:
 		virtual void BeginRenderViewFamily(FSceneViewFamily& InViewFamily) override;
 		virtual void PreRenderView_RenderThread(FRHICommandListImmediate& RHICmdList, FSceneView& InView) override {}
 		virtual void PreRenderViewFamily_RenderThread(FRHICommandListImmediate& RHICmdList, FSceneViewFamily& InViewFamily) override;
+
+#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 11
+#else
+		virtual int32 GetPriority() const override { return -10; }
+#endif
+
 	private:
 		friend class UGripMotionControllerComponent;
 

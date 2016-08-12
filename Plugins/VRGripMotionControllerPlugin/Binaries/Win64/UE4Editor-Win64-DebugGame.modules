@@ -1,6 +1,6 @@
 {
-	"Changelist" : 2992821,
-	"BuildId" : "1a66913b-862a-44b4-bb5a-4f5a449d4773",
+	"Changelist" : 3005592,
+	"BuildId" : "385a192c-bbaa-47e7-acdf-42f546abfb2e",
 	"Modules" : 
 	{
 		"VRGripMotionControllerPlugin" : "UE4Editor-VRGripMotionControllerPlugin-Win64-DebugGame.dll"
