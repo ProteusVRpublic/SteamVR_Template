@@ -24,95 +24,50 @@ External credits:
 
 For questions,s see the forum thread: https://forums.unrealengine.com/showthread.php?106609-Steam-VR-Template 
 
-# Version 1.11 – UE4.12.5: July 27, 2016 #
+# Version 1.12 – UE4.12.5: August 1, 2016 #
 
 Changelog
 
-* Updated to 4.12.5
-* Now using VRExpansion plugin
-* Multiplayer ready…or almost
-* Playground rotation or locked when teleport
-* Lot of small fixes
+* Fixed a missing folder preventing packaging project
+* Added player snapshot inside the playground when teleporting
+* Added a “legacy” teleportation method (select 1 and check “legacy teleport”)
+* Fixed some bugs found in all pawns
+* Added a FPS counter in front of the player
+* Now using more features from mordentral’s plugin
+
 
 #Features#
 
 * Basic pawn with controllers meshes, trackpads, face
-Animated triggers and hands in both controllers
-Mapping of all buttons/trackpad on controllers
-Force feedback
-Selectable controllers skins & opacity
-Select alternate meshes for controllers
-Adjustable "safe" value to teleport on uneven surfaces
+* Animated triggers and hands in both controllers
+* Mapping of all buttons/trackpad on controllers
+* Force feedback
+* Selectable controllers’ skins & opacity
+* Select alternate meshes for controllers
+* Adjustable "safe" value to teleport on uneven surfaces
 * Locomotion
-Teleport with trackpad and rotate playground
-Teleport with trigger
-Ghost Move
-
-Version 1.10.1 – UE4.12.3: June 15, 2016
-
-Changelog
-
-* Updated to 4.12.3
-* Updated grab plugin
-* Left and Right grab hands
-* New vehicle controls: vehicle rotate with direction
-* New environment with interactive consoles
-* Chaperone poles spawn fixed
-* Less settings; the rest will be in a future 3D menu
-* Matinee changed for Sequencer
-* Small glitches and crashes fixed
-* Vive_Pawn_Complete, with every functions (except vehicle)
-* Vive_Pawn_Vehicle, Vive_Pawn_Grab_Plugin (no lightsaber), Vive_Pawn_UltraMan will each do a specific function; only Vive_Pawn_Grab_Plugin uses the plugin; select pawn in Steam_GM
-* Fixed chaperons's poles and exit simple platform
-
-The Vive_Pawn_Complete does everything, except vehicle
-
-Following many requests, this is to facilitate the migration of the pawn into another project.
-
-Features
-
-* Animated triggers in both controllers
-* Map of all buttons/trackpad on controllers
+* Teleport with trackpad and rotate playground with camera position
+* Teleport with trigger
+* Ghost Move
+* Grab function
+* #Additional functions#
+* Go/No go teleportation zones with camera fade out
 * Toggle on/off debugging squares of controllers and/or base stations
 * Toggle on/off debugging meshes of base stations
-* 2 different ways to teleport
-* Ghost move
-* Basic vehicle
-* Scalability settings for Vive
-* Finger tracking on trackpad
-* Trace line with trigger
-* Force feedback
-* Textures on cubes and sphere to test scalability settings
-* Toybox: 4 objects with skeletal sockets: the sword, the gun, the baton, the lightsaber; 1 object with mesh socket: the book; 1 object without sockets: the hat
-* Animated "grabbing" mesh left and right hands
-* Teleportation with trackpad à la The Lab with cylinder & particles validation
-* Go/No go teleportation zones with camera fade out
-* Moving platform for testing purpose, by simple actor move (embark by triggering overlap volume or teleportation; disembark by teleportation) and Sequencer (embark/disembark with controller input)
 * Triggerable poles at the 4 chaperone corners
-* Addition of a cone at the tip of the right trigger -- can be rotated
+* Basic vehicle functions
+* Moving platform for testing purpose, by simple actor move (embark by triggering overlap volume or teleportation; disembark by teleportation) and matinee (embark/disembark with controller input)
 * “UltraMan” mode
-* Standing/seated experience switch
-
-* Grab function
-Additional functions
-* Go/No go teleportation zones with camera fade out
-Toggle on/off debugging squares of controllers and/or base stations
-Toggle on/off debugging meshes of base stations
-Triggerable poles at the 4 chaperone corners
-Basic vehicle functions
-Moving platform for testing purpose, by simple actor move (embark by triggering overlap volume or teleportation; disembark by teleportation) and matinee (embark/disembark with controller input)
-“UltraMan” mode
 * Settings
-Basic settings
-Scalability settings
-Pawn settings
+* Basic settings
+* Scalability settings
+* Pawn settings
 * Toybox
-4 objects with skeletal sockets: the sword, the gun, the baton, the lightsaber; 1 object with mesh socket: the book; 1 object without sockets: the hat
+* 4 objects with skeletal sockets: the sword, the gun, the baton, the lightsaber; 1 object with mesh socket: the book; 1 object without sockets: the hat
 * Multiplayer
-Multiplayer ready (missing: 3D widget interaction: soon!)
+* Multiplayer ready (missing: 3D widget interaction: soon!)
 
-
-Setup
+#Setup#
 Files can be found [on OneDrive] https://1drv.ms/f/s!AhConHxqM4Nisn-TFO1AtRNCJWhn
 GitHub version at https://github.com/ProteusVR/SteamVR_Template (you need to be logged to Github to open the link) 
 
@@ -122,14 +77,7 @@ Launch a new project, and you'll find it in the blueprint section.
 
 To install as a project file, unzip in your usual projects folder. Then, delete the file SteamVR_x-x/Config/TemplateDefs.ini and you’re ready to go.
 
-# IMPORTANT: If you open it like a regular project without deleting the .ini file, you’ll get errors messages.#
+# IMPORTANT: If you open it like a regular project without deleting the .ini file, you’ll get errors messages.
 
-Note 1: To enable the template within an existing project:
-To migrate pawn in another project:
-Migrate Vive_Pawn_Vehicle, Vive_Pawn_Grab_Plugin, or Vive_Pawn_UltraMan in another project
-* For Vive_Pawn_Vehicle, migrate the Vehicle Pawn also; for Vive_Pawn_Grab_Plugin be sure that the objects to grab have the blueprints and 3 interfaces and the the grab plugin is in the plugin folder
-* For all pawns, select the right pawn in the Steam_GameMode (GM); copy scalability and initial settings in level blueprint; in project settings set Engine/General Settings at USe Fixed Frame Rate 90, Engine/Rendering/Default Postprocessing settings: Uncheck everything (bloom is optional), choose AA method; Engine/Rendering/VR: Check Instanced Stereo. Put a post-process volume in the level and adjust it accordingly. Be sure that the SteamVR Game Mode (SteamVR_GM) and Steam_player_controller have followed if not recreate them.
-You should now easily migrate one of these 3 pawns into another project. More example pawns to follow soon.
-
-Note 2: To package your project:
+To package your project:
 Don’t forget to File/New C++ class, None, Create Class before packaging, if not the plugin won’t follow. Be sure to have a working copy of Visual Studio 2015 enabled.
