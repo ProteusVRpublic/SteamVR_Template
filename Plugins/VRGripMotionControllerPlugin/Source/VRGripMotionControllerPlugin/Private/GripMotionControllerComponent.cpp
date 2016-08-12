@@ -4,6 +4,11 @@
 #include "GripMotionControllerComponent.h"
 #include "PrimitiveSceneInfo.h"
 
+#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 11
+#else
+#include "Features/IModularFeatures.h"
+#endif
+
 namespace {
 	/** This is to prevent destruction of motion controller components while they are
 	in the middle of being accessed by the render thread */
@@ -435,6 +440,8 @@ bool UGripMotionControllerComponent::PollControllerState(FVector& Position, FRot
 
 	if ((PlayerIndex != INDEX_NONE) && bHasAuthority)
 	{
+
+#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 11
 		for (auto MotionController : GEngine->MotionControllerDevices)
 		{
 			if ((MotionController != nullptr) && MotionController->GetControllerOrientationAndPosition(PlayerIndex, Hand, Orientation, Position))
@@ -443,6 +450,18 @@ bool UGripMotionControllerComponent::PollControllerState(FVector& Position, FRot
 				return true;
 			}
 		}
+#else
+		// New iteration and retrieval for 4.12
+		TArray<IMotionController*> MotionControllers = IModularFeatures::Get().GetModularFeatureImplementations<IMotionController>(IMotionController::GetModularFeatureName());
+		for (auto MotionController : MotionControllers)
+		{
+			if ((MotionController != nullptr) && MotionController->GetControllerOrientationAndPosition(PlayerIndex, Hand, Orientation, Position))
+			{
+				CurrentTrackingStatus = MotionController->GetControllerTrackingStatus(PlayerIndex, Hand);
+				return true;
+			}
+		}
+#endif
 	}
 	return false;
 }
