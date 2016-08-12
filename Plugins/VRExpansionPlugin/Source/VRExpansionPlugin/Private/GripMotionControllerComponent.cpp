@@ -21,23 +21,10 @@ namespace {
 	in the middle of being accessed by the render thread */
 	FCriticalSection CritSect;
 
-	// This is already declared in the original motion controller component, redeclaring it provides a reference
-	// I assume there is a better way, but I can't use the extern define for it as they have it in the damned anonymous name space
-	// I also can't easily use IConsoleManager::Get() as there is no GetOnRenderThread specific implementation
-	// Sadly this means that there is an annoying "VariableAlreadyDeclared" warning in the log
-
-	/** Console variable for specifying whether motion controller late update is used */
-	//extern TAutoConsoleVariable<int32> CVarEnableMotionControllerLateUpdate; // Can't use this
-
-	TAutoConsoleVariable<int32> CVarEnableMotionControllerLateUpdate(
-		TEXT("vr.EnableMotionControllerLateUpdate"),
-		1,
-		TEXT("This command allows you to specify whether the motion controller late update is applied.\n")
-		TEXT(" 0: don't use late update\n")
-		TEXT(" 1: use late update (default)"),
-		ECVF_Cheat);
-		
 } // anonymous namespace
+
+static const auto CVarEnableMotionControllerLateUpdate = IConsoleManager::Get().FindTConsoleVariableDataInt(TEXT("vr.EnableMotionControllerLateUpdate"));
+
 
   //=============================================================================
 UGripMotionControllerComponent::UGripMotionControllerComponent(const FObjectInitializer& ObjectInitializer)
@@ -56,7 +43,7 @@ UGripMotionControllerComponent::UGripMotionControllerComponent(const FObjectInit
 	this->SetIsReplicated(true);
 
 	// Default 100 htz update rate, same as the 100htz update rate of rep_notify, will be capped to 90/45 though because of vsync on HMD
-	bReplicateControllerTransform = true;
+	//bReplicateControllerTransform = true;
 	ControllerNetUpdateRate = 100.0f; // 100 htz is default
 	ControllerNetUpdateCount = 0.0f;
 }
@@ -156,7 +143,7 @@ void UGripMotionControllerComponent::GetLifetimeReplicatedProps(TArray< class FL
 	DOREPLIFETIME_CONDITION(UGripMotionControllerComponent, ReplicatedControllerTransform, COND_SkipOwner);
 	DOREPLIFETIME(UGripMotionControllerComponent, GrippedActors);
 	DOREPLIFETIME(UGripMotionControllerComponent, ControllerNetUpdateRate);
-	DOREPLIFETIME(UGripMotionControllerComponent, bReplicateControllerTransform);
+//	DOREPLIFETIME(UGripMotionControllerComponent, bReplicateControllerTransform);
 }
 
 void UGripMotionControllerComponent::Server_SendControllerTransform_Implementation(FBPVRComponentPosRep NewTransform)
@@ -183,7 +170,7 @@ void UGripMotionControllerComponent::FViewExtension::BeginRenderViewFamily(FScen
 	}
 	FScopeLock ScopeLock(&CritSect);
 
-	if (MotionControllerComponent->bDisableLowLatencyUpdate || !CVarEnableMotionControllerLateUpdate.GetValueOnGameThread())
+	if (MotionControllerComponent->bDisableLowLatencyUpdate || !CVarEnableMotionControllerLateUpdate->GetValueOnGameThread())
 	{
 		return;
 	}	
@@ -776,28 +763,18 @@ void UGripMotionControllerComponent::TickComponent(float DeltaTime, enum ELevelT
 			return; // Don't update anything including location
 
 		// Don't bother with any of this if not replicating transform
-		if (bReplicateControllerTransform)
+		if (bReplicates && bTracked)
 		{
-			if (bIsServer && !bUseWithoutTracking) // Skip sending the RPC if this is the server, it doesn't need to.
-			{
-				ReplicatedControllerTransform.Position = Position;
-				ReplicatedControllerTransform.Orientation = Orientation;
-			}
-			else
+			ReplicatedControllerTransform.Position = Position;
+			ReplicatedControllerTransform.Orientation = Orientation;
+
+			if (GetNetMode() == NM_Client)//bReplicateControllerTransform)
 			{
 				ControllerNetUpdateCount += DeltaTime;
-
 				if (ControllerNetUpdateCount >= (1.0f / ControllerNetUpdateRate))
 				{
 					ControllerNetUpdateCount = 0.0f;
-
-					if (bTracked)
-					{
-						ReplicatedControllerTransform.Position = Position;
-						ReplicatedControllerTransform.Orientation = Orientation;
-
-						Server_SendControllerTransform(ReplicatedControllerTransform);
-					}
+					Server_SendControllerTransform(ReplicatedControllerTransform);
 				}
 			}
 		}
@@ -1403,7 +1380,7 @@ void UGripMotionControllerComponent::FViewExtension::PreRenderViewFamily_RenderT
 	}
 	FScopeLock ScopeLock(&CritSect);
 
-	if (MotionControllerComponent->bDisableLowLatencyUpdate || !CVarEnableMotionControllerLateUpdate.GetValueOnRenderThread())
+	if (MotionControllerComponent->bDisableLowLatencyUpdate || !CVarEnableMotionControllerLateUpdate->GetValueOnRenderThread())
 	{
 		return;
 	}

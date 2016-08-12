@@ -4,11 +4,18 @@
 	"Category": "",
 	"Description": "",
 	"Plugins": [
-
+		{
+			"Name": "Substance",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/offers/2f6439c2f9584f49809d9b13b16c2ba4"
+		},
 		{
 			"Name": "VictoryEdEngine",
 			"Enabled": false
+		},
+		{
+			"Name": "VRGripMotionControllerPlugin",
+			"Enabled": false
 		}
-
 	]
 }
