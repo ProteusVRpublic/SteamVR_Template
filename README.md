@@ -16,21 +16,15 @@ Have fun!
 
 Mat, at Proteus VR
 
-Version 1.9.2 – UE4.11.2: May 31, 2016
+Version 1.9.3 – UE4.12.1: June 6, 2016
 
 Changelog
 
-* Exit moving platform [FIXED
-* Teleport Method #2 [FIXED]
-* Drop function of conductor baton [FIXED]
-* Lightsaber settings lead to failed cooking [FIXED]
-* No HMD enabled with packaged level [FIXED]
-* Teleportation on platform follows the axis of play area
-* Scalability settings adjusted
-* Translucent materials removed, changed for masked materials
-* New settings
-* Option to enable Oculus Forward Renderer
-
+* Update to 4.12.0
+* Updated grab plugin
+* Removed Settings in Struc table and put within Vive_Pawn / Level Blueprint / Lightsaber BP
+* Removed Oculus Forward Renderer option (source version is still with 4.11.2)
+* Updated docs
 
 
 Features
