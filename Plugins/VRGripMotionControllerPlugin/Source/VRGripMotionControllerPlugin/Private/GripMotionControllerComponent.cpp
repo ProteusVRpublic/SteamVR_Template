@@ -35,7 +35,7 @@ void UGripMotionControllerComponent::FViewExtension::BeginRenderViewFamily(FScen
 		return;
 	}
 	FScopeLock ScopeLock(&CritSect);
-	if (!MotionControllerComponent || MotionControllerComponent->bDisableLowLatencyUpdate || !CVarEnableMotionControllerLateUpdate.GetValueOnGameThread())
+	if (MotionControllerComponent->bDisableLowLatencyUpdate || !CVarEnableMotionControllerLateUpdate.GetValueOnGameThread())
 	{
 		return;
 	}	
@@ -474,7 +474,8 @@ void UGripMotionControllerComponent::FViewExtension::PreRenderViewFamily_RenderT
 		return;
 	}
 	FScopeLock ScopeLock(&CritSect);
-	if (!MotionControllerComponent || MotionControllerComponent->bDisableLowLatencyUpdate || !CVarEnableMotionControllerLateUpdate.GetValueOnRenderThread())
+
+	if (MotionControllerComponent->bDisableLowLatencyUpdate || !CVarEnableMotionControllerLateUpdate.GetValueOnRenderThread())
 	{
 		return;
 	}

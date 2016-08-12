@@ -16,15 +16,20 @@ Have fun!
 
 Mat, at Proteus VR
 
-Version 1.9.3 – UE4.12.1: June 6, 2016
+Version 1.10 – UE4.12.2: June 14, 2016
 
 Changelog
 
-* Update to 4.12.0
+* Updated to 4.12.2
 * Updated grab plugin
-* Removed Settings in Struc table and put within Vive_Pawn / Level Blueprint / Lightsaber BP
-* Removed Oculus Forward Renderer option (source version is still with 4.11.2)
-* Updated docs
+* Left and Right grab hands
+* New vehicle controls: vehicle rotate with direction
+* New environment with interactive consoles
+* Chaperone poles spawn fixed
+* Less settings; the rest will be in a future 3D menu
+* Matinee changed for Sequencer
+* Small glitches and crashes fixed
+
 
 
 Features
@@ -42,10 +47,10 @@ Features
 * Force feedback
 * Textures on cubes and sphere to test scalability settings
 * Toybox: 4 objects with skeletal sockets: the sword, the gun, the baton, the lightsaber; 1 object with mesh socket: the book; 1 object without sockets: the hat
-* Animated "grabbing" mesh right hand (will be refined) -- can be used instead of right controller mesh
+* Animated "grabbing" mesh left and right hands
 * Teleportation with trackpad à la The Lab with cylinder & particles validation
 * Go/No go teleportation zones with camera fade out
-* Moving platform for testing purpose, by simple actor move (embark by triggering overlap volume or teleportation; disembark by teleportation) and matinee (embark/disembark with controller input)
+* Moving platform for testing purpose, by simple actor move (embark by triggering overlap volume or teleportation; disembark by teleportation) and Sequencer (embark/disembark with controller input)
 * Triggerable poles at the 4 chaperone corners
 * Addition of a cone at the tip of the right trigger -- can be rotated
 * “UltraMan” mode
@@ -55,6 +60,7 @@ Features
 * Selectable controllers skins & opacity
 * Select alternate meshes for controllers
 * Adjustable "safe" value to teleport on uneven surfaces
+* New environment with interactive consoles
 
 Setup
 Files can be found [on OneDrive](https://1drv.ms/f/s!AhConHxqM4Nisn-TFO1AtRNCJWhn "pre-authed link")
